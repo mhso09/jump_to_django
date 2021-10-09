@@ -12,7 +12,15 @@
     <title>hello, pybo</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+
+{% include "pybo/navbar.html" %}
+    <!-- 기본 템플릿 안에 삽입될 내용 start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 end -->
+<!-- jquery js -->
+<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+<!-- bootstrap js -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
 </body>
 </html>
