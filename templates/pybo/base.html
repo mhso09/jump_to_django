@@ -2,9 +2,24 @@
 
 <html lang="ko">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'assets/images/icons/favicon.ico' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}">
+<!--===============================================================================================-->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <!-- pybo css -->
@@ -13,11 +28,12 @@
 </head>
 <body>
 
-{% include "pybo/navbar.html" %}
+    {% include "pybo/navbar.html" %}
     <!-- 기본 템플릿 안에 삽입될 내용 start -->
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 <!-- 기본 템플릿 안에 삽입될 내용 end -->
+
 <!-- jquery js -->
 <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
 <!-- bootstrap js -->
