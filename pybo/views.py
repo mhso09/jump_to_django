@@ -2,13 +2,12 @@ from datetime import datetime
 from django.core import paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Question, Answer
-from .forms import QuestionForm, AnswerForm
+from .models import Comment, Question, Answer
+from .forms import CommentForm, QuestionForm, AnswerForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
-
 
 def index(request):
     """
@@ -28,7 +27,6 @@ def index(request):
 
     # context = {'question_list': question_list}
     return render(request, 'pybo/question_list.html', context)
-
 
 def detail(request, question_id):
     """
@@ -58,7 +56,6 @@ def question_create(request):
         form = QuestionForm()
     context = {'form': form}
     return render(request, 'pybo/question_form.html', context)
-
 
 @login_required(login_url='common:login')  # 이것이 호출되면 자동으로 로그인 화면으로 전환
 def answer_create(request, question_id):
@@ -134,7 +131,6 @@ def question_delete(request, question_id):
     question.delete()
     return redirect('pybo:index')
 
-
 @login_required(login_url='common:login')
 def answer_modify(request, answer_id):
     '''
@@ -155,3 +151,23 @@ def answer_modify(request, answer_id):
         form = AnswerForm(instance=answer)
     context = {'answer': answer, 'form': form}
     return render(request, 'pybo/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def comment_create_question(request, question_id):
+    """
+    pybo 질문댓글 작성
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(request.POST)
+            comment.author = request.user
+            comment.create_date = datetime.now()
+            comment.question = question
+            comment.save()
+            return redirect('pybo:detail', question_id=question.id)
+    else:
+        form = CommentForm()
+    context = {'form':form}
+    return render(request, 'pybo/comment_form.html', context)
