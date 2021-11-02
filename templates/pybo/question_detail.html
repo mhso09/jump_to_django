@@ -16,12 +16,20 @@
         <div class="card-body">
             <div class="card-text" style="white-space:pre-line;">{{ question.content }}</div>
             <div class="d-flex justify-content-end">
+                <!-- 수정일시 표시하기 -->
+                {% if question.modify_date %}
+                <div class="badge badge-light p-2 text-left mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ question.modify_date }}</div>
+                </div>
+                {% endif %}
                 <div class="d-flex justify-content-light p-2 text-left">
                     <div class="mb-2"> <h5>{{ question.author.username }}</h5>
                         <div>{{ question.create_date }}</div>
                     </div>
                 </div>
             </div>
+            <!-- 유저와 질문자가 같은 경우 수정 및 삭제 가능 -->
             {% if request.user == question.author %}
             <div class="my-3">
                 <a href="{% url 'pybo:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
@@ -37,12 +45,20 @@
         <div class="card-body">
             <div class="card-text" style="white-space:pre-line;">{{ answer.content }}</div>
             <div class="d-flex justify-content-end">
+                <!-- 수정일시 표시하기 -->
+                {% if answer.modify_date %}
+                <div class="badge badge-light p-2 text-left mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ answer.modify_date }}</div>
+                </div>
+                {% endif %}
                 <div class="d-flex justify-content-light p-2 text-left">
                     <div class="mb-2"><h5>{{ answer.author.username }}</h5>
                         <div>{{ answer.create_date }}</div>
                     </div>
                 </div>
             </div>
+            <!-- 유저와 답변자가 같은 경우 수정 및 삭제 가능 -->
             {% if request.user == answer.author %}
             <div class="my-3">
                 <a href="{% url 'pybo:answer_modify' answer.id %}" class="btn btn-sm btn-outline-secondary">수정</a>

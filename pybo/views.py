@@ -143,15 +143,15 @@ def answer_modify(request, answer_id):
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user != answer.author:
         messages.error(request, '수정권한이 없습니다.')
-        return redirect('pybo:detail', answer_id=answer.id)
+        return redirect('pybo:detail', question_id=answer.question.id)
     if request.method == 'POST':
         form = AnswerForm(request.POST, instance=answer)
         if form.is_valid():
             answer = form.save(commit=False)
-            answer.modify_date = datetime.now()
+            answer.modify_date = timezone.now()
             answer.save()
-            return redirect('pybo:detail', answer_id=answer.id)
+            return redirect('pybo:detail', question_id=answer.question.id)
     else:
         form = AnswerForm(instance=answer)
-    context = {'form': form}
-    return render(request, 'pybo/question_form.html', context)
+    context = {'answer': answer, 'form': form}
+    return render(request, 'pybo/answer_form.html', context)
