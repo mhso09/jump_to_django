@@ -23,20 +23,16 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = [
-            'content',
-        ]
+        fields = ['content']
 
         labels = {
             'content': '내용',
         }
 
-class CommentForm(forms.modelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = [
-            'content',
-        ]
+        fields = ['content']
 
         labels = {
             'content':'댓글 내용',

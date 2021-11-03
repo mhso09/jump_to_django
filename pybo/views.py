@@ -171,3 +171,26 @@ def comment_create_question(request, question_id):
         form = CommentForm()
     context = {'form':form}
     return render(request, 'pybo/comment_form.html', context)
+
+
+@login_required(login_url='common:login')
+def comment_modify_question(request, comment_id):
+    """
+    pybo 댓글 수정하기
+    """
+    comment = get_object_or_404(request, pk=comment_id)
+    if request.user != comment.author:
+        messages.error(request, "수정권한이 없습니다.")
+        return redirect('pybo:detail', question_id=comment.question.id)
+    
+    if request.method == "POST":
+        form = CommentForm(request.POST, insrance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.modify_date = datetime.now()
+            comment.save()
+            return redirect('pybo:detail', question_id=comment.question.id)
+    else:
+        form = CommentForm(instance=comment)
+    context = {"form":form}
+    return render(request, "pybo/comment_form.html", context)
