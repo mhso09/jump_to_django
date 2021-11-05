@@ -16,12 +16,20 @@ urlpatterns = [
          views.question_delete, name='question_delete'), # 질문 삭제
     path('answer/modify/<int:answer_id>/',
          views.answer_modify, name='answer_modify'), # 답변 수정
+    path('answer/delete/<int:answer_id>/',
+         views.answer_delete, name='answer_delete'),  # 답변 수정
+
      path('comment/create/question/<int:question_id>',
          views.comment_create_question, name='comment_create_question'), #질문 댓글 등록
-
     path('comment/modify/question/<int:comment_id>',
          views.comment_modify_question, name='comment_modify_question'), # 질문 댓글 수정
+    path('comment/delete/question/<int:comment_id>',
+         views.comment_delete_question, name='comment_delete_question'), # 질문 댓글 삭제
 
-#     path('comment/delete/question/<int:comment_id>',
-#          views.comment_delete_question, name='comment_delete_question'), # 질문 댓글 삭제
+    path('comment/create/answer/<int:answer_id>',
+         views.comment_create_answer, name='comment_create_answer'),  # 답글 댓글 등록
+    path('comment/modify/answer/<int:comment_id>',
+         views.comment_modify_answer, name='comment_modify_answer'),  # 답글 댓글 수정
+    path('comment/delete/answer/<int:comment_id>',
+         views.comment_delete_answer, name='comment_delete_answer'),  # 답글 댓글 삭제
 ]
