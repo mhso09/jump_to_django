@@ -7,33 +7,40 @@
         <thead>
             <tr class="text-center thead-dark">
                 <th>번호</th>
+                <th>추천</th>
                 <th style="width:50%">제목</th>
                 <th>글쓴이</th>
-                <th>작성일시</th>   
+                <th>작성일시</th>
+                <th>조회수</th>
             </tr>
         </thead>
         <tbody>
         {% if question_list %}
         {% for question in question_list %}
-            <tr class="text-center">
-                <!-- 번호 새기기 : 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
-                <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
-                <td class="text-left">
-                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
-                    <!-- 답변 달린 갯수 표시 -->
-                    {% if question.answer_set.count > 0 %}
-                    <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
-                    {% endif %}
-                </td>
-                <td>{{ question.author.username }}</td> <!-- 글쓴이 추가 -->
-                <td>{{ question.create_date }}</td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="3">질문이 없습니다.</td>
-            </tr>
-            {% endif%}
+        <tr class="text-center">
+            <!-- 번호 새기기 : 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+            <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
+            <td>
+                {% if question.voter.all.count > 0 %}
+                <span class="badge badge-warning px-2 py-1">{{ question.voter.all.count }}</span>
+                {% endif %}
+            </td>
+            <td class="text-left">
+                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                <!-- 답변 달린 갯수 표시 -->
+                {% if question.answer_set.count > 0 %}
+                <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
+                {% endif %}
+            </td>
+            <td>{{ question.author.username }}</td> <!-- 글쓴이 추가 -->
+            <td>{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif%}
         </tbody>
     </table>
     <!-- 페이징 처리 시작 -->
